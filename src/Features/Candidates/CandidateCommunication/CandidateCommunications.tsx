@@ -46,7 +46,11 @@ const TabContainer = styled("div")({
   overflow: "auto",
 });
 
-export const CandidateCommunications = () => {
+
+export const CandidateCommunications:React.FC<{
+  toggleDrawer: (state?: boolean) => void;
+}> = ({toggleDrawer}) => {
+  
   const [value, setValue] = React.useState(tabsList[1].value);
 
   const handleChange = (_: unknown, newValue: string) => {
@@ -55,7 +59,7 @@ export const CandidateCommunications = () => {
   return (
     <Box display="flex" flexDirection="column" height="100%">
       <TabContext value={value}>
-        <CandidateCommunicationsHeader />
+        <CandidateCommunicationsHeader toggleDrawer={toggleDrawer}/>
         <Box paddingX="16px">
           <TabsHeader
             tabsList={tabsList}

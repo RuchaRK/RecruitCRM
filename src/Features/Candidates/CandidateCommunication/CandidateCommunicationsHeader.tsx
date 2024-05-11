@@ -1,8 +1,9 @@
+import { CloseOutlined } from "@mui/icons-material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EventIcon from "@mui/icons-material/Event";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
-import { Button, styled } from "@mui/material";
+import { Button, IconButton, Theme, styled, useMediaQuery } from "@mui/material";
 
 export const CircularIconButton = styled(Button)({
   borderRadius: "50%",
@@ -21,7 +22,10 @@ const ButtonGroupContainer = styled("div")(({ theme }) => ({
   background: theme.palette.common.white,
 }));
 
-export const CandidateCommunicationsHeader = () => {
+export const CandidateCommunicationsHeader:React.FC<{
+  toggleDrawer: (state?: boolean) => void;
+}>  = ({toggleDrawer}) => {
+  const match = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (
     <div>
       <ButtonGroupContainer>
@@ -37,6 +41,9 @@ export const CandidateCommunicationsHeader = () => {
         <CircularIconButton>
           <EventIcon fontSize="small" />
         </CircularIconButton>
+       {match && <IconButton onClick={()=>toggleDrawer(false)}>
+          <CloseOutlined/>
+        </IconButton>}
       </ButtonGroupContainer>
     </div>
   );

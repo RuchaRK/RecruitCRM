@@ -8,6 +8,8 @@ import {
   Switch,
   Typography,
   styled,
+  useMediaQuery,
+  Theme
 } from "@mui/material";
 import * as React from "react";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
@@ -84,6 +86,42 @@ const DetailsContainer: React.FC<{
   description: string;
   assignedFrom: string;
 }> = ({ candidateName, assignedJob, description, assignedFrom }) => {
+  const matchDownSm = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
+  if(matchDownSm){
+    return (
+      <DetailContainer>
+        <Box display="flex" alignItems="start" justifyContent="space-between" width="100%"> 
+          <IconTextContainer>
+            <Avatar />
+            <Box display="flex" flexDirection="column">
+              <Typography variant="subtitle2">{assignedJob}</Typography>
+              <Typography variant="caption">{description}</Typography>
+            </Box>
+          </IconTextContainer>
+          <AntSwitch defaultChecked inputProps={{ "aria-label": "ant design" }} />
+        </Box>
+        <Box display="flex" flexDirection="column">
+          <IconTextContainer>
+            <AccountCircleOutlinedIcon fontSize="small" />
+            <Typography variant="caption">{candidateName}</Typography>
+          </IconTextContainer>
+          <IconTextContainer>
+            <AccessTimeIcon fontSize="small" />
+            <Typography variant="caption">{assignedFrom}</Typography>
+          </IconTextContainer>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="space-between" width="100%"> 
+          <Chip variant="outlined" size="medium" label="Assigned" />
+          <Button variant="outlined" size="small">
+            View Files
+          </Button>
+        </Box>
+        
+      </DetailContainer>
+    )
+  }
   return (
     <DetailContainer>
       <IconTextContainer>

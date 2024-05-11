@@ -1,4 +1,4 @@
-import { Drawer, IconButton, Typography, alpha } from "@mui/material";
+import { Drawer, IconButton, Typography, alpha, useMediaQuery, Theme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import { NavLink } from "react-router-dom";
@@ -24,11 +24,12 @@ interface Props {
 }
 
 export const SideNavBar: React.FC<Props> = ({ open, toggleDrawer }) => {
+  const match = useMediaQuery((theme: Theme)=>theme.breakpoints.down("sm"))
   return (
     <Drawer
       closeAfterTransition
       onClose={() => toggleDrawer(false)}
-      variant="permanent"
+      variant={match ? "temporary" : "permanent"}
       open={open}
       sx={{
         flexShrink: 0,

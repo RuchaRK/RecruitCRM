@@ -35,7 +35,9 @@ export const PageWrapper: React.FC<{ children: React.ReactNode }> = ({
     height: "auto",
     width: "100%",
     border: `1px solid ${theme.palette.grey[200]}`,
-    overflow: "auto",
+    [theme.breakpoints.down("sm")]:{
+      margin: "56px 0 0 0",
+    }
   }));
 
   return (

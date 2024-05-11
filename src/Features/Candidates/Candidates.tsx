@@ -9,6 +9,8 @@ import { CandidateInfo } from "./CandidateInfo/CandidateInfo";
 const CandidatesInfoContainer = styled("div")(({ theme }) => ({
   flex: 0.75,
   height: "100%",
+  overflow: "auto",
+  paddingBottom: "24px",
   border: `1px solid ${theme.palette.grey[200]}`,
   [theme.breakpoints.down("lg")]: {
     flex: 1,
@@ -34,7 +36,7 @@ export const Candidates = () => {
     setOpen((prev) => !prev);
   };
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex",  paddingBottom: "24px" }}>
       <CandidatesInfoContainer>
         <CandidateHeader toggleDrawer={toggleDrawer} />
         <CandidateDetails data={EmployeeDetails} />
@@ -42,7 +44,7 @@ export const Candidates = () => {
       </CandidatesInfoContainer>
       {match ? (
         <UserContainer>
-          <CandidateCommunications />
+          <CandidateCommunications toggleDrawer={toggleDrawer}/>
         </UserContainer>
       ) : (
         <Drawer
@@ -57,9 +59,10 @@ export const Candidates = () => {
               marginTop: "56px",
               maxWidth: "440px",
               boxSizing: "border-box",
+              width: "100%",
             },
           }}>
-          <CandidateCommunications />
+          <CandidateCommunications toggleDrawer={toggleDrawer}/>
         </Drawer>
       )}
     </div>

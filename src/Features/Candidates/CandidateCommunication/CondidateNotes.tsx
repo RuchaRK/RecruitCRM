@@ -1,7 +1,7 @@
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import StickyNote2Icon from "@mui/icons-material/StickyNote2";
-import { Chip, ChipProps, Typography, styled } from "@mui/material";
+import { Box, Chip, ChipProps, Typography, styled } from "@mui/material";
 import { format } from "date-fns";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
 
@@ -82,45 +82,46 @@ const getColor = (status: NoteStatus): ChipProps["color"] => {
 };
 
 export const CandidateNotes = () => {
-  return notes.map((note) => {
-    return (
-      <NoteCardContainer>
-        <Header>
-          <IconTextContainer>
-            <StickyNote2Icon fontSize="small" />
-            <Typography variant="subtitle2" color="#548fd5">
-              {note.title}
+  return (
+    <Box display="flex" flexDirection="column" gap="12px">
+      {notes.map((note) => {
+        return (
+          <NoteCardContainer>
+            <Header>
+              <IconTextContainer>
+                <StickyNote2Icon fontSize="small" />
+                <Typography variant="subtitle2" color="#548fd5">
+                  {note.title}
+                </Typography>
+              </IconTextContainer>
+              <Chip
+                label={statusToText[note.status]}
+                variant="filled"
+                size="small"
+                color={getColor(note.status)}
+              />
+            </Header>
+            <Typography variant="body1">
+            {note.description}
             </Typography>
-          </IconTextContainer>
-          <Chip
-            label={statusToText[note.status]}
-            variant="filled"
-            size="small"
-            color={getColor(note.status)}
-          />
-        </Header>
-        <Typography variant="body1">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea
-          iusto, nam neque assumenda cum animi, eius harum debitis dicta
-          exercitationem odit mollitia doloremque, eos tempore aspernatur
-          inventore delectus! Eveniet.
-        </Typography>
-        <Typography variant="subtitle2" color={"blue"}>
-          1 Association(s)
-        </Typography>
-        <UserAndDateContainer>
-          <IconTextContainer>
-            <AccountCircleOutlinedIcon fontSize="small" />
-            <Typography variant="caption">John Deo</Typography>
-          </IconTextContainer>
-          <IconTextContainer>
-            <AccessTimeOutlinedIcon fontSize="small" />
-            <Typography variant="caption">
-              {format(new Date(), "MMM dd',' yyyy, hh:mm a")}
+            <Typography variant="subtitle2" color={"blue"}>
+              {note.associationCount ? `${note.associationCount} Association(s)`: null}
             </Typography>
-          </IconTextContainer>
-        </UserAndDateContainer>
-      </NoteCardContainer>
-    );
-  });
+            <UserAndDateContainer>
+              <IconTextContainer>
+                <AccountCircleOutlinedIcon fontSize="small" />
+                <Typography variant="caption">{note.author}</Typography>
+              </IconTextContainer>
+              <IconTextContainer>
+                <AccessTimeOutlinedIcon fontSize="small" />
+                <Typography variant="caption">
+                  {format(note.date, "MMM dd',' yyyy, hh:mm a")}
+                </Typography>
+              </IconTextContainer>
+            </UserAndDateContainer>
+          </NoteCardContainer>
+        );
+      })}
+    </Box>
+  );
 };

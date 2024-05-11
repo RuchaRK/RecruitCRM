@@ -1,4 +1,4 @@
-import { Typography, TypographyProps } from "@mui/material";
+import { Theme, Typography, TypographyProps, useMediaQuery } from "@mui/material";
 
 import { styled } from "@mui/material";
 
@@ -15,9 +15,10 @@ const MainContainer = styled("div")({
 });
 
 export const ComingSoon: React.FC<Prop> = ({ variant = "h2" }) => {
+  const match = useMediaQuery((theme: Theme)=> theme.breakpoints.down("sm"))
   return (
     <MainContainer>
-      <Typography variant={variant}>Coming Soon...</Typography>
+      <Typography variant={match? "body1" :variant}>Coming Soon...</Typography>
     </MainContainer>
   );
 };

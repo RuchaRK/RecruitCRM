@@ -3,10 +3,10 @@ import AssistantIcon from "@mui/icons-material/Assistant";
 import EditIcon from "@mui/icons-material/Edit";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FacebookIcon from "@mui/icons-material/FacebookRounded";
-import Github from "@mui/icons-material/Github";
 import HistoryIcon from "@mui/icons-material/History";
 import LinkIcon from "@mui/icons-material/Link";
-import LinkedIn from "@mui/icons-material/LinkedIn";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -35,7 +35,7 @@ const HeaderContainer = styled("div")(({ theme }) => ({
     flexDirection: "column",
     alignItems: "start",
     justifyContent: "start",
-    height: "100px",
+    height: "fit-content",
   },
 }));
 
@@ -81,24 +81,31 @@ const ContactDetails = styled("div")(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   gap: "16px",
-
+  height: "50px",
   padding: "12px 20px",
   border: `1px solid ${theme.palette.grey[200]}`,
   [theme.breakpoints.down("sm")]: {
     gap: "2px",
-    height: "60px",
     flexDirection: "column",
     alignItems: "start",
+    height: "fit-content",
     justifyContent: "start",
   },
 }));
 
-const DetailStyling = styled("div")({
+const DetailStyling = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   gap: "12px",
-});
+  [theme.breakpoints.down("sm")]: {
+    gap: "2px",
+    flexDirection: "column",
+    alignItems: "start",
+    height: "fit-content",
+    justifyContent: "start",
+  },
+}));
 
 const ButtonGroupContainer = styled("div")({
   display: "flex",
@@ -117,9 +124,9 @@ export const CandidateHeader: React.FC<{
     <>
       <HeaderContainer>
         <div>
-          <Breadcrumbs separator={<NavigateNextIcon />} aria-label="breadcrumb">
+          <Breadcrumbs separator={<NavigateNextIcon />} sx={{flexWrap:"nowrap"}}>
             <Link to="/">
-              <Typography variant="subtitle2">Candidates</Typography>
+              <Typography variant="subtitle2" noWrap>Candidates</Typography>
             </Link>
             <Typography variant="subtitle2">{EmployeeDetails.name}</Typography>
             <Chip
@@ -150,8 +157,8 @@ export const CandidateHeader: React.FC<{
               <LogoContainer>
                 <FacebookIcon htmlColor="#1877F2" fontSize="small" />
                 <TwitterIcon htmlColor="#1DA1F2" fontSize="small" />
-                <LinkedIn htmlColor="#0077B5" fontSize="small" />
-                <Github htmlColor="#2b3137" fontSize="small" />
+                <LinkedInIcon htmlColor="#0077B5" fontSize="small" />
+                <GitHubIcon htmlColor="#2b3137" fontSize="small" />
               </LogoContainer>
             </Info>
             <Info>
@@ -214,7 +221,7 @@ export const CandidateHeader: React.FC<{
           </IconTextContainer>
           <IconTextContainer>
             <LocalPhoneOutlinedIcon fontSize="small" />
-            <Typography variant="caption" color="blue">
+            <Typography variant="caption" color="blue"  >
               {`+91 ${EmployeeDetails.phone}`}
             </Typography>
           </IconTextContainer>
