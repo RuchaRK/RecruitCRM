@@ -1,6 +1,6 @@
 import { Typography, styled } from "@mui/material";
 import { format } from "date-fns";
-import { Candidate } from "../../Data";
+import { Candidate } from "../../App.types";
 
 const MainDetailContainer = styled("div")(({ theme }) => ({
   display: "grid",

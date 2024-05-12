@@ -22,7 +22,7 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { ButtonsContainer } from "../../Components/GlobalHeader";
 import { IconTextContainer } from "../../Components/IconTextContainer";
-import { Candidate } from "../../Data";
+import { Candidate } from "../../App.types";
 import { EditCandidate } from "./EditCandidate";
 import * as React from "react";
 

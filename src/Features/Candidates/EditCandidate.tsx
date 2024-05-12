@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { Candidate } from "../../Data";
+import { Candidate } from "../../App.types";
 import { format } from "date-fns";
 
 interface Props {

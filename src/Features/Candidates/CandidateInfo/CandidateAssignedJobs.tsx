@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
-import {  jobs } from "../../../Data";
+import { useFetch } from "../../../Hooks/useFetch";
+import { Job } from "../../../App.types";
 
 const MainContainer = styled("div")({
   display: "flex",
@@ -153,6 +154,18 @@ const DetailsContainer: React.FC<{
 export const CandidateAssignedJobs:React.FC <{candidateName:string}> = ({
   candidateName
 }) => {
+
+  const {loading,error,data:jobs} = useFetch<Array<Job>>('http://localhost:4000/jobs')
+
+  
+  if(loading){
+    return <div>loading</div>
+  }
+
+  if(error || !jobs){
+    return <div>error</div>
+  }
+
   return (
     <MainContainer>
       <ActionsContainer>

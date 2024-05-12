@@ -1,10 +1,11 @@
 import { Drawer, Theme, styled, useMediaQuery } from "@mui/material";
 import * as React from "react";
-import { EmployeeDetails } from "../../Data";
+import { Candidate } from "../../App.types";
 import { CandidateCommunications } from "./CandidateCommunication/CandidateCommunications";
 import { CandidateDetails } from "./CandidateDetails";
 import { CandidateHeader } from "./CandidateHeader";
 import { CandidateInfo } from "./CandidateInfo/CandidateInfo";
+import { useFetch } from "../../Hooks/useFetch";
 
 const CandidatesInfoContainer = styled("div")(({ theme }) => ({
   flex: 0.75,
@@ -25,7 +26,21 @@ const UserContainer = styled("div")(({ theme }) => ({
 export const Candidates = () => {
   const match = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const [open, setOpen] = React.useState(false);
-  const [candidateData,setCandidateData] = React.useState(EmployeeDetails)
+
+  const {
+    loading,
+    error,
+    data: candidateData,
+    setData: setCandidateData,
+  } = useFetch<Candidate>("http://localhost:4000/candidates/321");
+
+  if(loading){
+    return <div>loading</div>
+  }
+
+  if(error || !candidateData){
+    return <div>error</div>
+  }
 
   const toggleDrawer = (state?: boolean) => {
     if (state !== undefined) {
@@ -37,15 +52,19 @@ export const Candidates = () => {
     setOpen((prev) => !prev);
   };
   return (
-    <div style={{ display: "flex",  paddingBottom: "24px" }}>
+    <div style={{ display: "flex", paddingBottom: "24px" }}>
       <CandidatesInfoContainer>
-        <CandidateHeader toggleDrawer={toggleDrawer} data={candidateData} setData={setCandidateData} />
+        <CandidateHeader
+          toggleDrawer={toggleDrawer}
+          data={candidateData}
+          setData={setCandidateData}
+        />
         <CandidateDetails data={candidateData} />
         <CandidateInfo data={candidateData} />
       </CandidatesInfoContainer>
       {match ? (
         <UserContainer>
-          <CandidateCommunications toggleDrawer={toggleDrawer}/>
+          <CandidateCommunications toggleDrawer={toggleDrawer} />
         </UserContainer>
       ) : (
         <Drawer
@@ -62,8 +81,9 @@ export const Candidates = () => {
               boxSizing: "border-box",
               width: "100%",
             },
-          }}>
-          <CandidateCommunications toggleDrawer={toggleDrawer}/>
+          }}
+        >
+          <CandidateCommunications toggleDrawer={toggleDrawer} />
         </Drawer>
       )}
     </div>

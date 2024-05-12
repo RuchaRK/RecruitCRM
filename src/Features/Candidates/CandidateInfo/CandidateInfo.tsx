@@ -5,7 +5,7 @@ import * as React from "react";
 import { TabsHeader } from "../../../Components/TabsHeader";
 import { ComingSoon } from "../../ComingSome";
 import { CandidateAssignedJobs } from "./CandidateAssignedJobs";
-import { Candidate } from "../../../Data";
+import { Candidate } from "../../../App.types";
 
 const getTabsList =(name:string)=>( [
   {
