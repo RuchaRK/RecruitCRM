@@ -25,6 +25,7 @@ const UserContainer = styled("div")(({ theme }) => ({
 export const Candidates = () => {
   const match = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const [open, setOpen] = React.useState(false);
+  const [candidateData,setCandidateData] = React.useState(EmployeeDetails)
 
   const toggleDrawer = (state?: boolean) => {
     if (state !== undefined) {
@@ -38,9 +39,9 @@ export const Candidates = () => {
   return (
     <div style={{ display: "flex",  paddingBottom: "24px" }}>
       <CandidatesInfoContainer>
-        <CandidateHeader toggleDrawer={toggleDrawer} />
-        <CandidateDetails data={EmployeeDetails} />
-        <CandidateInfo />
+        <CandidateHeader toggleDrawer={toggleDrawer} data={candidateData} setData={setCandidateData} />
+        <CandidateDetails data={candidateData} />
+        <CandidateInfo data={candidateData} />
       </CandidatesInfoContainer>
       {match ? (
         <UserContainer>

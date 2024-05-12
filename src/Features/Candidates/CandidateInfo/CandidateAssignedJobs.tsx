@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
-import { EmployeeDetails, jobs } from "../../../Data";
+import {  jobs } from "../../../Data";
 
 const MainContainer = styled("div")({
   display: "flex",
@@ -150,7 +150,9 @@ const DetailsContainer: React.FC<{
   );
 };
 
-export const CandidateAssignedJobs = () => {
+export const CandidateAssignedJobs:React.FC <{candidateName:string}> = ({
+  candidateName
+}) => {
   return (
     <MainContainer>
       <ActionsContainer>
@@ -169,7 +171,7 @@ export const CandidateAssignedJobs = () => {
       <Box p="12px">
         {jobs.map((job) => (
           <DetailsContainer
-            candidateName={EmployeeDetails.name}
+            candidateName={candidateName}
             assignedJob={job.assignedJob}
             description={job.description}
             assignedFrom={job.assignedFrom}

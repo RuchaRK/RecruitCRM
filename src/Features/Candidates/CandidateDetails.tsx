@@ -1,6 +1,6 @@
 import { Typography, styled } from "@mui/material";
 import { format } from "date-fns";
-import { Employee } from "../../Data";
+import { Candidate } from "../../Data";
 
 const MainDetailContainer = styled("div")(({ theme }) => ({
   display: "grid",
@@ -30,7 +30,7 @@ const KeyValuePair: React.FC<{ keyText: string; valueText: string }> = ({
   );
 };
 
-export const CandidateDetails: React.FC<{ data: Employee }> = ({ data }) => {
+export const CandidateDetails: React.FC<{ data: Candidate }> = ({ data }) => {
   return (
     <MainDetailContainer>
       <KeyValuePair
@@ -45,7 +45,7 @@ export const CandidateDetails: React.FC<{ data: Employee }> = ({ data }) => {
       />
       <KeyValuePair
         keyText="Available From"
-        valueText={format(new Date(data.availableFrom), "dd MMM yyyy")}
+        valueText={format(new Date(data.avaliableFrom), "dd MMM yyyy")}
       />
       <KeyValuePair
         keyText="Date of Birth"

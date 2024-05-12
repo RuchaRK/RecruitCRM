@@ -5,8 +5,9 @@ import * as React from "react";
 import { TabsHeader } from "../../../Components/TabsHeader";
 import { ComingSoon } from "../../ComingSome";
 import { CandidateAssignedJobs } from "./CandidateAssignedJobs";
+import { Candidate } from "../../../Data";
 
-const tabsList = [
+const getTabsList =(name:string)=>( [
   {
     value: "AllDetails",
     displayValue: "All Details",
@@ -15,7 +16,7 @@ const tabsList = [
   {
     value: "AssignedJobs",
     displayValue: "Assigned Jobs",
-    component: <CandidateAssignedJobs />,
+    component: <CandidateAssignedJobs candidateName={name} />,
   },
   {
     value: "RelatedEmails",
@@ -42,7 +43,7 @@ const tabsList = [
     displayValue: "Contact(s) Pitched",
     component: <ComingSoon variant="h5" />,
   },
-];
+])
 
 const MainContainer = styled("div")({
   display: "flex",
@@ -50,23 +51,30 @@ const MainContainer = styled("div")({
   gap: "12px",
 });
 
-export const CandidateInfo = () => {
-  const [value, setValue] = React.useState(tabsList[1].value);
+export const CandidateInfo:React.FC<{data:Candidate}> = ({data}) => {
+
+  const tabList = React.useMemo(()=>getTabsList(data.name),[data.name])
+
+  const [value, setValue] = React.useState(tabList[1].value);
+  
 
   const handleChange = (_: unknown, newValue: string) => {
     setValue(newValue);
   };
+
+ 
+
   return (
     <MainContainer>
       <TabContext value={value}>
         <TabsHeader
-          tabsList={tabsList}
+          tabsList={tabList}
           highLight={true}
           showIndicator={true}
           selectedValue={value}
           handleChange={handleChange}
         />
-        {tabsList.map((tab) => (
+        {tabList.map((tab) => (
           <TabPanel sx={{ padding: 0, height: "100%" }} value={tab.value}>
             {tab.component}
           </TabPanel>

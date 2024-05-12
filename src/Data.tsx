@@ -1,4 +1,4 @@
-export type Employee = {
+export type Candidate = {
   id: number;
   name: string;
   email: string;
@@ -7,7 +7,7 @@ export type Employee = {
   currentOrganization: string;
   designation: string;
   skills: string[];
-  availableFrom: string;
+  avaliableFrom: string;
   currentSalary: number;
   noticePeriod: number;
   fullAddress: {
@@ -33,7 +33,7 @@ type Job = {
   assignedFrom: string;
 };
 
-export const EmployeeDetails: Employee = {
+export const EmployeeDetails: Candidate = {
   id: 321,
   name: "William Sample",
   email: "williamsample@gmail.com",
@@ -42,7 +42,7 @@ export const EmployeeDetails: Employee = {
   currentOrganization: "World Bank Group",
   designation: "Senior Product Manager",
   skills: ["HTML", "CSS", "Javascript"],
-  availableFrom: "2023-07-13T18:30:00.000Z",
+  avaliableFrom: "2023-07-13T18:30:00.000Z",
   currentSalary: 90000,
   noticePeriod: 90,
   fullAddress: {
@@ -55,7 +55,7 @@ export const EmployeeDetails: Employee = {
   totalExperience: 9,
   relevantExperience: 7,
   summary: "Current organization",
-  currentEmploymentStatus: "Employed",
+  currentEmploymentStatus: "employed",
   salaryExpectation: 9000,
   status: "Submitted to client.",
   salaryType: "Annual",

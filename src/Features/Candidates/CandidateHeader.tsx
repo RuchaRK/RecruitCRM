@@ -5,8 +5,8 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FacebookIcon from "@mui/icons-material/FacebookRounded";
 import HistoryIcon from "@mui/icons-material/History";
 import LinkIcon from "@mui/icons-material/Link";
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -22,7 +22,10 @@ import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { ButtonsContainer } from "../../Components/GlobalHeader";
 import { IconTextContainer } from "../../Components/IconTextContainer";
-import { EmployeeDetails } from "../../Data";
+import { Candidate } from "../../Data";
+import { EditCandidate } from "./EditCandidate";
+import * as React from "react";
+
 const HeaderContainer = styled("div")(({ theme }) => ({
   display: "flex",
   height: "50px",
@@ -113,24 +116,42 @@ const ButtonGroupContainer = styled("div")({
   gap: "12px",
 });
 
-export const CandidateHeader: React.FC<{
+interface Props{
+  data:Candidate,
+  setData:(data:Candidate)=>void,
   toggleDrawer: (state?: boolean) => void;
-}> = ({ toggleDrawer }) => {
+
+}
+
+export const CandidateHeader: React.FC<Props> = ({ toggleDrawer,data,setData }) => {
   const match = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const matchDownMd = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("md")
   );
+  const [open, setOpen] = React.useState(false);
+
+  const onSubmit =(formValues:Candidate)=>{
+    setData(({...formValues}))
+    setOpen(false)
+  }
+console.log("new data",data)
+
   return (
     <>
       <HeaderContainer>
         <div>
-          <Breadcrumbs separator={<NavigateNextIcon />} sx={{flexWrap:"nowrap"}}>
+          <Breadcrumbs
+            separator={<NavigateNextIcon />}
+            sx={{ flexWrap: "nowrap" }}
+          >
             <Link to="/">
-              <Typography variant="subtitle2" noWrap>Candidates</Typography>
+              <Typography variant="subtitle2" noWrap>
+                Candidates
+              </Typography>
             </Link>
-            <Typography variant="subtitle2">{EmployeeDetails.name}</Typography>
+            <Typography variant="subtitle2">{data.name}</Typography>
             <Chip
-              label={`ID - ${EmployeeDetails.id}`}
+              label={`ID - ${data.id}`}
               variant="outlined"
               size="small"
             />
@@ -153,7 +174,7 @@ export const CandidateHeader: React.FC<{
           <Avatar sx={{ height: "64px", width: "64px" }} />
           <CardHeader>
             <Info>
-              <Typography variant="h6">{EmployeeDetails.name}</Typography>
+              <Typography variant="h6">{data.name}</Typography>
               <LogoContainer>
                 <FacebookIcon htmlColor="#1877F2" fontSize="small" />
                 <TwitterIcon htmlColor="#1DA1F2" fontSize="small" />
@@ -163,26 +184,25 @@ export const CandidateHeader: React.FC<{
             </Info>
             <Info>
               <Typography variant="caption">
-                {EmployeeDetails.designation}
+                {data.designation}
               </Typography>
               {match ? (
                 <>
                   <Typography variant="caption">
-                    {EmployeeDetails.fullAddress.country}
+                    {data.fullAddress.country}
                   </Typography>
                   <Typography variant="caption">
-                    {EmployeeDetails.fullAddress.city}
+                    {data.fullAddress.city}
                   </Typography>
                 </>
               ) : (
                 <Typography variant="caption">
-                  {`${EmployeeDetails.fullAddress.country}, ${EmployeeDetails.fullAddress.city}`}
+                  {`${data.fullAddress.country}, ${data.fullAddress.city}`}
                 </Typography>
               )}
             </Info>
           </CardHeader>
         </IconTextContainer>
-
         <ButtonGroupContainer>
           <Button variant="outlined" size="small" color="error">
             {match ? "Contact Linked" : <LinkIcon fontSize="small" />}
@@ -193,7 +213,7 @@ export const CandidateHeader: React.FC<{
           <Button variant="outlined" size="small">
             <LocalFireDepartmentIcon fontSize="small" />
           </Button>
-          <Button variant="outlined" size="small">
+          <Button variant="outlined" size="small" onClick={()=>setOpen(true)}>
             <EditIcon fontSize="small" />
           </Button>
           {!match && (
@@ -201,7 +221,8 @@ export const CandidateHeader: React.FC<{
               variant="outlined"
               size="small"
               sx={{ minWidth: "unset" }}
-              onClick={() => toggleDrawer()}>
+              onClick={() => toggleDrawer()}
+            >
               <AssistantIcon fontSize="small" />
             </Button>
           )}
@@ -216,13 +237,13 @@ export const CandidateHeader: React.FC<{
           <IconTextContainer>
             <EmailOutlinedIcon fontSize="small" />
             <Typography variant="caption" color="blue">
-              {EmployeeDetails.email}
+              {data.email}
             </Typography>
           </IconTextContainer>
           <IconTextContainer>
             <LocalPhoneOutlinedIcon fontSize="small" />
-            <Typography variant="caption" color="blue"  >
-              {`+91 ${EmployeeDetails.phone}`}
+            <Typography variant="caption" color="blue">
+              {`+91 ${data.phone}`}
             </Typography>
           </IconTextContainer>
         </DetailStyling>
@@ -240,6 +261,9 @@ export const CandidateHeader: React.FC<{
           </IconTextContainer>
         </DetailStyling>
       </ContactDetails>
+      {open ? (
+        <EditCandidate closeWizard={() => setOpen(false)} handleSubmit={onSubmit}  initialState={data} />
+      ) : null}
     </>
   );
 };
