@@ -1,5 +1,5 @@
-import * as React from "react";
 import axios from "axios";
+import * as React from "react";
 
 export function useFetch<T>(api: string): {
   data?: T;
@@ -7,12 +7,11 @@ export function useFetch<T>(api: string): {
   error: boolean;
   setData: (data: T) => void;
 } {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [data, setData] = React.useState<T>();
 
   const fetchData = async () => {
-    setLoading(true);
     try {
       const response = await axios.get(api);
       if (response.status === 200) {

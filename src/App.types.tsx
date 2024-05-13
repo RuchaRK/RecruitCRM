@@ -7,7 +7,7 @@ export type Candidate = {
   currentOrganization: string;
   designation: string;
   skills: string[];
-  avaliableFrom: string;
+  availableFrom: string;
   currentSalary: number;
   noticePeriod: number;
   fullAddress: {
@@ -28,11 +28,8 @@ export type Candidate = {
 };
 
 export type Job = {
-  id:string,
+  id: string;
   assignedJob: string;
   description: string;
   assignedFrom: string;
 };
-
-
-

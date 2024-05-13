@@ -1,11 +1,13 @@
 import { Drawer, Theme, styled, useMediaQuery } from "@mui/material";
 import * as React from "react";
 import { Candidate } from "../../App.types";
-import { CandidateCommunications } from "./CandidateCommunication/CandidateCommunications";
+import { Error } from "../../Components/Error";
+import { Loading } from "../../Components/Loading";
+import { useFetch } from "../../Hooks/useFetch";
+import { CandidateCommunications } from "./CandidateCommunication/Candi dateCommunications";
 import { CandidateDetails } from "./CandidateDetails";
 import { CandidateHeader } from "./CandidateHeader";
 import { CandidateInfo } from "./CandidateInfo/CandidateInfo";
-import { useFetch } from "../../Hooks/useFetch";
 
 const CandidatesInfoContainer = styled("div")(({ theme }) => ({
   flex: 0.75,
@@ -34,12 +36,12 @@ export const Candidates = () => {
     setData: setCandidateData,
   } = useFetch<Candidate>("http://localhost:4000/candidates/321");
 
-  if(loading){
-    return <div>loading</div>
+  if (loading) {
+    return <Loading />;
   }
 
-  if(error || !candidateData){
-    return <div>error</div>
+  if (error || !candidateData) {
+    return <Error />;
   }
 
   const toggleDrawer = (state?: boolean) => {
@@ -81,8 +83,7 @@ export const Candidates = () => {
               boxSizing: "border-box",
               width: "100%",
             },
-          }}
-        >
+          }}>
           <CandidateCommunications toggleDrawer={toggleDrawer} />
         </Drawer>
       )}

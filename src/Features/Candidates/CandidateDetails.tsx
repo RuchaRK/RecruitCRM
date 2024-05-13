@@ -45,7 +45,7 @@ export const CandidateDetails: React.FC<{ data: Candidate }> = ({ data }) => {
       />
       <KeyValuePair
         keyText="Available From"
-        valueText={format(new Date(data.avaliableFrom), "dd MMM yyyy")}
+        valueText={format(new Date(data.availableFrom), "dd MMM yyyy")}
       />
       <KeyValuePair
         keyText="Date of Birth"

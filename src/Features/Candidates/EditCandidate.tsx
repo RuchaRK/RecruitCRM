@@ -1,29 +1,28 @@
 import {
-  useTheme,
-  useMediaQuery,
   Button,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
   DialogContentText,
-  DialogActions,
+  DialogTitle,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
-  styled,
-  InputLabel,
-  FormControl,
   SelectChangeEvent,
+  styled,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import * as React from "react";
 import TextField from "@mui/material/TextField";
-import { Candidate } from "../../App.types";
 import { format } from "date-fns";
+import * as React from "react";
+import { Candidate } from "../../App.types";
 
 interface Props {
   closeWizard: () => void;
-  handleSubmit: (formData:Candidate) => void;
+  handleSubmit: (formData: Candidate) => void;
   initialState: Candidate;
-  
 }
 
 const StyledDialogueBox = styled(DialogContentText)({
@@ -38,16 +37,17 @@ export const EditCandidate: React.FC<Props> = ({
   closeWizard,
   handleSubmit,
   initialState,
-  
 }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [formData, setFormData] = React.useState(initialState);
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
+    event:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>
   ) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event?.target.value,
@@ -57,26 +57,21 @@ export const EditCandidate: React.FC<Props> = ({
   const handleDateChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    
     setFormData((prev) => ({
       ...prev,
-      [event.target.name]: (new Date(event?.target.value)).toISOString(),
+      [event.target.name]: new Date(event?.target.value).toISOString(),
     }));
   };
 
   const handleArrayValueChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value.split(","),
     }));
   };
-
-
-  
-  
 
   return (
     <React.Fragment>
@@ -84,8 +79,7 @@ export const EditCandidate: React.FC<Props> = ({
         fullScreen={fullScreen}
         open
         onClose={closeWizard}
-        sx={{ maxWidth: "unset" }}
-      >
+        sx={{ maxWidth: "unset" }}>
         <DialogTitle>Edit Candidate Details</DialogTitle>
         <DialogContent>
           <StyledDialogueBox>
@@ -119,14 +113,12 @@ export const EditCandidate: React.FC<Props> = ({
               value={format(new Date(formData.dob), "yyyy-MM-dd")}
               onChange={handleDateChange}
             />
-          
-
 
             <TextField
               label="Avaliable From"
               type="date"
-              name="avaliableFrom"
-              value={format(new Date(formData.avaliableFrom),"yyyy-MM-dd")}
+              name="availableFrom"
+              value={format(new Date(formData.availableFrom), "yyyy-MM-dd")}
               onChange={handleDateChange}
             />
 
@@ -182,8 +174,7 @@ export const EditCandidate: React.FC<Props> = ({
                 label="Employement Status"
                 name="currentEmploymentStatus"
                 value={formData.currentEmploymentStatus}
-                onChange={handleChange}
-              >
+                onChange={handleChange}>
                 <MenuItem value="intern">Intern</MenuItem>
                 <MenuItem value="employed">Employed</MenuItem>
                 <MenuItem value="servingNotice">Serving Notice Period</MenuItem>

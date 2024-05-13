@@ -3,10 +3,10 @@ import AssistantIcon from "@mui/icons-material/Assistant";
 import EditIcon from "@mui/icons-material/Edit";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import FacebookIcon from "@mui/icons-material/FacebookRounded";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import HistoryIcon from "@mui/icons-material/History";
 import LinkIcon from "@mui/icons-material/Link";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -19,12 +19,12 @@ import { Avatar, Button, Chip, Typography, useMediaQuery } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Theme, styled } from "@mui/material/styles";
 import { format } from "date-fns";
+import * as React from "react";
 import { Link } from "react-router-dom";
+import { Candidate } from "../../App.types";
 import { ButtonsContainer } from "../../Components/GlobalHeader";
 import { IconTextContainer } from "../../Components/IconTextContainer";
-import { Candidate } from "../../App.types";
 import { EditCandidate } from "./EditCandidate";
-import * as React from "react";
 
 const HeaderContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -116,25 +116,27 @@ const ButtonGroupContainer = styled("div")({
   gap: "12px",
 });
 
-interface Props{
-  data:Candidate,
-  setData:(data:Candidate)=>void,
+interface Props {
+  data: Candidate;
+  setData: (data: Candidate) => void;
   toggleDrawer: (state?: boolean) => void;
-
 }
 
-export const CandidateHeader: React.FC<Props> = ({ toggleDrawer,data,setData }) => {
+export const CandidateHeader: React.FC<Props> = ({
+  toggleDrawer,
+  data,
+  setData,
+}) => {
   const match = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const matchDownMd = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("md")
   );
   const [open, setOpen] = React.useState(false);
 
-  const onSubmit =(formValues:Candidate)=>{
-    setData(({...formValues}))
-    setOpen(false)
-  }
-console.log("new data",data)
+  const onSubmit = (formValues: Candidate) => {
+    setData({ ...formValues });
+    setOpen(false);
+  };
 
   return (
     <>
@@ -142,19 +144,14 @@ console.log("new data",data)
         <div>
           <Breadcrumbs
             separator={<NavigateNextIcon />}
-            sx={{ flexWrap: "nowrap" }}
-          >
+            sx={{ flexWrap: "nowrap" }}>
             <Link to="/">
               <Typography variant="subtitle2" noWrap>
                 Candidates
               </Typography>
             </Link>
             <Typography variant="subtitle2">{data.name}</Typography>
-            <Chip
-              label={`ID - ${data.id}`}
-              variant="outlined"
-              size="small"
-            />
+            <Chip label={`ID - ${data.id}`} variant="outlined" size="small" />
           </Breadcrumbs>
         </div>
         <ButtonsContainer>
@@ -183,9 +180,7 @@ console.log("new data",data)
               </LogoContainer>
             </Info>
             <Info>
-              <Typography variant="caption">
-                {data.designation}
-              </Typography>
+              <Typography variant="caption">{data.designation}</Typography>
               {match ? (
                 <>
                   <Typography variant="caption">
@@ -213,7 +208,7 @@ console.log("new data",data)
           <Button variant="outlined" size="small">
             <LocalFireDepartmentIcon fontSize="small" />
           </Button>
-          <Button variant="outlined" size="small" onClick={()=>setOpen(true)}>
+          <Button variant="outlined" size="small" onClick={() => setOpen(true)}>
             <EditIcon fontSize="small" />
           </Button>
           {!match && (
@@ -221,8 +216,7 @@ console.log("new data",data)
               variant="outlined"
               size="small"
               sx={{ minWidth: "unset" }}
-              onClick={() => toggleDrawer()}
-            >
+              onClick={() => toggleDrawer()}>
               <AssistantIcon fontSize="small" />
             </Button>
           )}
@@ -262,7 +256,11 @@ console.log("new data",data)
         </DetailStyling>
       </ContactDetails>
       {open ? (
-        <EditCandidate closeWizard={() => setOpen(false)} handleSubmit={onSubmit}  initialState={data} />
+        <EditCandidate
+          closeWizard={() => setOpen(false)}
+          handleSubmit={onSubmit}
+          initialState={data}
+        />
       ) : null}
     </>
   );

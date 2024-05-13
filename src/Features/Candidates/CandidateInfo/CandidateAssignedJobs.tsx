@@ -6,15 +6,15 @@ import {
   Button,
   Chip,
   Switch,
+  Theme,
   Typography,
   styled,
   useMediaQuery,
-  Theme
 } from "@mui/material";
 import * as React from "react";
+import { Job } from "../../../App.types";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
 import { useFetch } from "../../../Hooks/useFetch";
-import { Job } from "../../../App.types";
 
 const MainContainer = styled("div")({
   display: "flex",
@@ -90,10 +90,14 @@ const DetailsContainer: React.FC<{
   const matchDownSm = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("sm")
   );
-  if(matchDownSm){
+  if (matchDownSm) {
     return (
       <DetailContainer>
-        <Box display="flex" alignItems="start" justifyContent="space-between" width="100%"> 
+        <Box
+          display="flex"
+          alignItems="start"
+          justifyContent="space-between"
+          width="100%">
           <IconTextContainer>
             <Avatar />
             <Box display="flex" flexDirection="column">
@@ -101,7 +105,10 @@ const DetailsContainer: React.FC<{
               <Typography variant="caption">{description}</Typography>
             </Box>
           </IconTextContainer>
-          <AntSwitch defaultChecked inputProps={{ "aria-label": "ant design" }} />
+          <AntSwitch
+            defaultChecked
+            inputProps={{ "aria-label": "ant design" }}
+          />
         </Box>
         <Box display="flex" flexDirection="column">
           <IconTextContainer>
@@ -113,15 +120,18 @@ const DetailsContainer: React.FC<{
             <Typography variant="caption">{assignedFrom}</Typography>
           </IconTextContainer>
         </Box>
-        <Box display="flex" alignItems="center" justifyContent="space-between" width="100%"> 
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%">
           <Chip variant="outlined" size="medium" label="Assigned" />
           <Button variant="outlined" size="small">
             View Files
           </Button>
         </Box>
-        
       </DetailContainer>
-    )
+    );
   }
   return (
     <DetailContainer>
@@ -151,19 +161,21 @@ const DetailsContainer: React.FC<{
   );
 };
 
-export const CandidateAssignedJobs:React.FC <{candidateName:string}> = ({
-  candidateName
+export const CandidateAssignedJobs: React.FC<{ candidateName: string }> = ({
+  candidateName,
 }) => {
+  const {
+    loading,
+    error,
+    data: jobs,
+  } = useFetch<Array<Job>>("http://localhost:4000/jobs");
 
-  const {loading,error,data:jobs} = useFetch<Array<Job>>('http://localhost:4000/jobs')
-
-  
-  if(loading){
-    return <div>loading</div>
+  if (loading) {
+    return <div>loading</div>;
   }
 
-  if(error || !jobs){
-    return <div>error</div>
+  if (error || !jobs) {
+    return <div>error</div>;
   }
 
   return (
