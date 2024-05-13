@@ -45,7 +45,7 @@ export const EditCandidate: React.FC<Props> = ({
   const handleChange = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | SelectChangeEvent<string>
+      | SelectChangeEvent<string>,
   ) => {
     console.log(event.target.value);
     setFormData((prev) => ({
@@ -55,7 +55,7 @@ export const EditCandidate: React.FC<Props> = ({
   };
 
   const handleDateChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData((prev) => ({
       ...prev,
@@ -64,7 +64,7 @@ export const EditCandidate: React.FC<Props> = ({
   };
 
   const handleArrayValueChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     console.log(event.target.value);
     setFormData((prev) => ({
@@ -79,7 +79,8 @@ export const EditCandidate: React.FC<Props> = ({
         fullScreen={fullScreen}
         open
         onClose={closeWizard}
-        sx={{ maxWidth: "unset" }}>
+        sx={{ maxWidth: "unset" }}
+      >
         <DialogTitle>Edit Candidate Details</DialogTitle>
         <DialogContent>
           <StyledDialogueBox>
@@ -174,7 +175,8 @@ export const EditCandidate: React.FC<Props> = ({
                 label="Employement Status"
                 name="currentEmploymentStatus"
                 value={formData.currentEmploymentStatus}
-                onChange={handleChange}>
+                onChange={handleChange}
+              >
                 <MenuItem value="intern">Intern</MenuItem>
                 <MenuItem value="employed">Employed</MenuItem>
                 <MenuItem value="servingNotice">Serving Notice Period</MenuItem>

@@ -15,6 +15,8 @@ import * as React from "react";
 import { Job } from "../../../App.types";
 import { IconTextContainer } from "../../../Components/IconTextContainer";
 import { useFetch } from "../../../Hooks/useFetch";
+import { Loading } from "../../../Components/Loading";
+import { Error } from "../../../Components/Error";
 
 const MainContainer = styled("div")({
   display: "flex",
@@ -88,7 +90,7 @@ const DetailsContainer: React.FC<{
   assignedFrom: string;
 }> = ({ candidateName, assignedJob, description, assignedFrom }) => {
   const matchDownSm = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("sm")
+    theme.breakpoints.down("sm"),
   );
   if (matchDownSm) {
     return (
@@ -97,7 +99,8 @@ const DetailsContainer: React.FC<{
           display="flex"
           alignItems="start"
           justifyContent="space-between"
-          width="100%">
+          width="100%"
+        >
           <IconTextContainer>
             <Avatar />
             <Box display="flex" flexDirection="column">
@@ -124,7 +127,8 @@ const DetailsContainer: React.FC<{
           display="flex"
           alignItems="center"
           justifyContent="space-between"
-          width="100%">
+          width="100%"
+        >
           <Chip variant="outlined" size="medium" label="Assigned" />
           <Button variant="outlined" size="small">
             View Files
@@ -171,11 +175,11 @@ export const CandidateAssignedJobs: React.FC<{ candidateName: string }> = ({
   } = useFetch<Array<Job>>("http://localhost:4000/jobs");
 
   if (loading) {
-    return <div>loading</div>;
+    return <Loading />;
   }
 
   if (error || !jobs) {
-    return <div>error</div>;
+    return <Error />;
   }
 
   return (
