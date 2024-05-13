@@ -4,7 +4,7 @@ import { Candidate } from "../../App.types";
 import { Error } from "../../Components/Error";
 import { Loading } from "../../Components/Loading";
 import { useFetch } from "../../Hooks/useFetch";
-import { CandidateCommunications } from "./CandidateCommunication/Candi dateCommunications";
+import { CandidateCommunications } from "./CandidateCommunication/CandidateCommunications";
 import { CandidateDetails } from "./CandidateDetails";
 import { CandidateHeader } from "./CandidateHeader";
 import { CandidateInfo } from "./CandidateInfo/CandidateInfo";
@@ -83,7 +83,8 @@ export const Candidates = () => {
               boxSizing: "border-box",
               width: "100%",
             },
-          }}>
+          }}
+        >
           <CandidateCommunications toggleDrawer={toggleDrawer} />
         </Drawer>
       )}

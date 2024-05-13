@@ -55,7 +55,8 @@ export const TabsHeader: React.FC<TabsHeaderProps> = ({
         value={selectedValue}
         onChange={handleChange}
         aria-label="nav tabs example"
-        role="navigation">
+        role="navigation"
+      >
         {tabsList.map((tab) => (
           <AntTab value={tab.value} label={tab.displayValue} />
         ))}

@@ -2,6 +2,7 @@ import { styled } from "@mui/material";
 import * as React from "react";
 import { GlobalHeader } from "./GlobalHeader";
 import { SideNavBar } from "./SideNavBar";
+import { NAV_BAR_SIZE } from "../Theme/theme.constants";
 
 export const PageWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -31,13 +32,13 @@ export const PageWrapper: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const ChildContainer = styled("div")(({ theme }) => ({
-    margin: "56px 0 0 56px",
+    margin: `${NAV_BAR_SIZE} 0 0 ${NAV_BAR_SIZE}`,
     height: "auto",
     width: "100%",
     border: `1px solid ${theme.palette.grey[200]}`,
-    [theme.breakpoints.down("sm")]:{
-      margin: "56px 0 0 0",
-    }
+    [theme.breakpoints.down("sm")]: {
+      margin: `${NAV_BAR_SIZE} 0 0 0`,
+    },
   }));
 
   return (

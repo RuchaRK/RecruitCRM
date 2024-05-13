@@ -1,9 +1,17 @@
-import { Drawer, IconButton, Typography, alpha, useMediaQuery, Theme } from "@mui/material";
+import {
+  Drawer,
+  IconButton,
+  Typography,
+  alpha,
+  useMediaQuery,
+  Theme,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { routeName } from "../App.routes";
 import { IconTextContainer } from "./IconTextContainer";
+import { NAV_BAR_SIZE } from "../Theme/theme.constants";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -12,7 +20,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
   gap: "16px",
   height: "100%",
-  marginTop: "56px",
+  marginTop: NAV_BAR_SIZE,
   padding: "8px",
   color: theme.palette.common.white,
   backgroundColor: "#143E6F",
@@ -24,7 +32,7 @@ interface Props {
 }
 
 export const SideNavBar: React.FC<Props> = ({ open, toggleDrawer }) => {
-  const match = useMediaQuery((theme: Theme)=>theme.breakpoints.down("sm"))
+  const match = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   return (
     <Drawer
       closeAfterTransition
@@ -38,8 +46,9 @@ export const SideNavBar: React.FC<Props> = ({ open, toggleDrawer }) => {
               width: 236,
               boxSizing: "border-box",
             }
-          : { width: "56px" },
-      }}>
+          : { width: "57px" },
+      }}
+    >
       <DrawerHeader>
         {routeName.map((page) => {
           const Icon = page.icons;
@@ -55,7 +64,8 @@ export const SideNavBar: React.FC<Props> = ({ open, toggleDrawer }) => {
                               backgroundColor: alpha(palette.primary.dark, 0.6),
                             }
                           : {}
-                      }>
+                      }
+                    >
                       <Icon htmlColor="white" />
                     </IconButton>
                     {open && <Typography color="white">{page.name}</Typography>}

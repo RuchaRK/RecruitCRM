@@ -21,6 +21,7 @@ import { Theme, styled } from "@mui/material/styles";
 import * as React from "react";
 import { IconTextContainer } from "./IconTextContainer";
 import { StyledCircularIconButton } from "./StyledIconButton";
+import { NAV_BAR_SIZE } from "../Theme/theme.constants";
 
 interface Props {
   readonly toggleDrawer: () => void;
@@ -28,7 +29,7 @@ interface Props {
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  height: "56px",
+  height: NAV_BAR_SIZE,
   flexDirection: "row",
   color: theme.palette.text.primary,
   display: "flex",
@@ -76,8 +77,8 @@ const UserProfileContainer = styled("div")({
 
 const MenuContainer = styled("div")(({ theme }) => ({
   backgroundColor: "#143E6F",
-  height: "56px",
-  width: "57px",
+  height: NAV_BAR_SIZE,
+  minWidth: NAV_BAR_SIZE,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -97,12 +98,14 @@ export const GlobalHeader: React.FC<Props> = ({ toggleDrawer }) => {
   return (
     <StyledAppBar
       position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <MenuContainer>
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={() => toggleDrawer()}>
+          onClick={() => toggleDrawer()}
+        >
           <GridViewIcon />
         </IconButton>
       </MenuContainer>
@@ -167,7 +170,8 @@ export const GlobalHeader: React.FC<Props> = ({ toggleDrawer }) => {
                 display: "flex",
                 alignItems: "center",
                 textAlign: "center",
-              }}>
+              }}
+            >
               <Tooltip title="Account settings">
                 <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
                   <Avatar alt="Remy Sharp" />{" "}
@@ -181,7 +185,8 @@ export const GlobalHeader: React.FC<Props> = ({ toggleDrawer }) => {
               onClose={handleClose}
               onClick={handleClose}
               transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
               <MenuItem onClick={handleClose}>
                 <IconTextContainer>
                   <Avatar alt="Remy Sharp" />
